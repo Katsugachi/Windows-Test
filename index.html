@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Browser Windows Installer Emulator</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="bar">
+    <div class="title">Browser Emulator</div>
+    <div class="controls">
+      <label class="btn">
+        <input type="file" id="isoInput" accept=".iso" />
+        Load Windows ISO
+      </label>
+      <label class="field">
+        Disk (GB)
+        <input type="number" id="diskSize" min="4" max="32" value="8" />
+      </label>
+      <label class="field">
+        RAM (MB)
+        <input type="number" id="ramSize" min="256" max="1024" value="512" />
+      </label>
+      <button id="btnBoot" class="btn">Boot</button>
+      <button id="btnReset" class="btn">Reset</button>
+      <button id="btnPowerOff" class="btn danger">Power Off</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="left">
+      <canvas id="screen" width="800" height="600"></canvas>
+      <div id="status" class="status"></div>
+      <div class="guide">
+        <div class="step"><span class="badge">1</span> Load a Windows 10 ISO using “Load Windows ISO”.</div>
+        <div class="step"><span class="badge">2</span> Choose disk size (8–16 GB) and RAM (512–1024 MB).</div>
+        <div class="step"><span class="badge">3</span> Click “Boot”. It will boot from the CD and start Setup.</div>
+        <div class="step"><span class="badge">4</span> In Setup, pick “Custom” and install to the empty virtual disk.</div>
+        <div class="step"><span class="badge">5</span> Be patient. Copy/expand stages are very slow in-browser.</div>
+      </div>
+    </section>
+    <section class="right">
+      <div class="panel">
+        <div class="panel-title">Log</div>
+        <div id="log" class="log"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Storage</div>
+        <div class="kv">
+          <div><span class="key">Database:</span><span class="val" id="dbName">browser-emulator-db</span></div>
+          <div><span class="key">Quota hint:</span><span class="val">Clear site data if you run out of space</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Boot order</div>
+        <div class="kv">
+          <div><span class="key">Current:</span><span class="val" id="bootOrder">CD → HDD</span></div>
+          <div><span class="key">Tip:</span><span class="val">After first reboot, set HDD first if Setup loops</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bar foot">
+    <div>Monochrome UI • No ads • No tracking</div>
+    <div>IndexedDB-backed sparse disk • v86 WebAssembly</div>
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
